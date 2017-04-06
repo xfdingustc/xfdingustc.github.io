@@ -1,372 +1,361 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-  <title>xfdingustc&#39;s note</title>
+<!doctype html>
+
+
+
   
-  <link href="/atom.xml" rel="self"/>
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
-  <link href="http://yoursite.com/"/>
-  <updated>2017-04-06T03:29:12.595Z</updated>
-  <id>http://yoursite.com/</id>
   
-  <author>
-    <name>xfdingustc</name>
-    
-  </author>
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
   
-  <generator uri="http://hexo.io/">Hexo</generator>
   
-  <entry>
-    <title>OpenMax标准协议 第二章 OpenMAX IL 介绍和框架</title>
-    <link href="http://yoursite.com/2017/04/01/chapter2/"/>
-    <id>http://yoursite.com/2017/04/01/chapter2/</id>
-    <published>2017-04-01T03:20:10.000Z</published>
-    <updated>2017-04-06T03:29:12.595Z</updated>
-    
-    <content type="html"><![CDATA[<p>#OpenMAX IL 介绍和框架<br>本章介绍了OpenMAX的特点和框架</p>
-<p>##2.1  OpenMAX IL 简介<br>OpenMAX IL层API定义了一个用于在系统提供的软件组件的接入层软件接口。目的是让拥有不同方法的组件提供一个标准化的接口和命令集， 来构建和销毁组件。</p>
-<p>###2.1.1 架构概述<br>如果一个系统，需要四种多媒体处理模块，记为F1，F2，F3和F4。这些模块可能来自不同的公司或部门。每一个处理模块可能都有不同的初始化/销毁，配置和数据传输接口。OpenMAX IL的API可以将这些不同的接口或模块封装为标准的组件。</p>
-<p>该API包括一个可以让来自不同的供应商/组织之间可以彼此交换数据的相互兼容组件的标准协议。</p>
-<p>OpenMAX IL API的上层软件为IL客户端实例，可以是一个多媒体框架或是一个应用程序。IL客户端与一个称之为核心（Core）的集中式IL实例交互。 IL客户端使用OpenMAX Core进行加载和卸载组件，建立两个OpenMAX组件之间的直接通信，并且访问组件的功能方法。</p>
-<p>IL客户端总是通过IL Core与组件进行通信。在大多数情况下，这种通信是通过调用IL Core的一些宏方法，这些宏可以被直接翻译为一些组件的方法。特殊情况（当IL客户端调用一个实际的核心功能）包括组件的创建，销毁以及两个组件管道的连接。</p>
-<p>组件内嵌了多媒体处理功能。虽然本规范明确规定了OpenMAX Core的功能，组件供应商定义了组件的功能。组件可以操作四种类型的数据：音频，视频，图像，和其他（例如，用于同步的时间数据）。</p>
-<p>一个OpenMAX组件提供了通过其组件句柄的一系列标准组件函数接口。这些函数允许客户端获取和设置组件和端口的配置参数，获取和设置组件的状态，发送命令给组件，接受事件通知，分配buffer，与单一组件端口建立通信，并连接两个组件端口之间的通信。</p>
-<p>每一个OpenMAX组件应该至少有一个端口保证OpenMAX一致性。虽然供应商可能会提供一个兼容OpenMAX的组件，它没有端口。 大多数一致性测试依赖至少一个端口。OpenMAX所定义端口类型可以根据所传输的数据类型分为四类：音频、视频、图像和其他。每一个端口可以定义为为输入或者输出端口，这取决于它是否消耗或生产buffer。在一个含有四个多媒体处理功能的模块F1，F2，F3，F4的系统中，系统需要为每一个功能提供OpenMAX标准接口。开发人员可以轻易的任意组合这些功能。功能的分离是基于端口的划分。图2-1显示了这些功能的可能组合。</p>
-<p><img src="img/2_1.png" alt=""></p>
-<p><strong>表 2-1. OpenMAX实现的几种形式</strong></p>
-<p>###2.1.2 名词解释<br>本小节介绍了OpenMax IL 中所用的字母缩写和关键词定义</p>
-<p>####2.1.2.1  字母缩写<br>表2-1 列举了OpenMAX IL中首字母缩写的含义.</p>
-<table>
-<thead>
-<tr>
-<th>首字母缩写</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>IPC</td>
-<td>进程间通信</td>
-</tr>
-<tr>
-<td>OMX</td>
-<td>OpenMAX功能和结构的名称前缀。例如，一个组件可以处于OMX_StateExecuting状态。</td>
-</tr>
-</tbody>
-</table>
-<p><strong>表 2-1. 首字母缩写</strong></p>
-<p>####2.1.2.2  关键词定义<br>表 2-2 列举了OpenMAX IL中关键词的定义.</p>
-<table>
-<thead>
-<tr>
-<th>关键词</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Accelerated component</td>
-<td>OpenMAX组件封装了一部分在加速器中运行的功能。加速组件具有某些特殊的特性，如能够支持某些类型的管道(tunnel)。</td>
-</tr>
-<tr>
-<td>Accelerator</td>
-<td>硬件加速功能处理器。这种硬件模块也可称为硬件加速器。注意，加速器也可以不是硬件而是运行在另一个处理器上的软件模块。</td>
-</tr>
-<tr>
-<td>AMR</td>
-<td>自适应多媒体检索的缩写，是一种从3GGP组织提出的自适应码率编解码算法。</td>
-</tr>
-<tr>
-<td>Host processor</td>
-<td>多核系统中控制多媒体加速的处理器，通常运行高级操作系统。</td>
-</tr>
-<tr>
-<td>IL client</td>
-<td>调用OpenMAX核心（Core）或组件(component)方法的软件层。IL客户端可能是低于GUI的软件层，如Gstreamer，也可能在GUI下面几层。在此文档中，应用是指任何调用OpenMAX方法的软件模块。</td>
-</tr>
-<tr>
-<td>Main memory</td>
-<td>CPU和加速器共享的外部存储器。</td>
-</tr>
-<tr>
-<td>OpenMAX component</td>
-<td>封装目标系统所需功能的组件。OpenMAX封装了提供功能的标准接口。</td>
-</tr>
-<tr>
-<td>OpenMAX core</td>
-<td>与系统平台相关的代码，提供了找到并加载OpenMAX组件到内存的必要功能。当应用不再需要此OpenMAX组件时，Core也负责销毁内存中的组件。总的来说，加载OpenMAX组件到内存后，Core将不参与组件和应用程序之间的通信</td>
-</tr>
-<tr>
-<td>Resource manager</td>
-<td>管理系统中硬件资源的软件模块。</td>
-</tr>
-<tr>
-<td>RTP</td>
-<td>实时协议的缩写，它是用于传输实时数据的因特网标准协议，包括音频和视频。</td>
-</tr>
-<tr>
-<td>Synchronization</td>
-<td>组件之间相互控制的机制。</td>
-</tr>
-<tr>
-<td>Tunnels/Tunneling</td>
-<td>两个OpenMAX组件之间标准数据通路。</td>
-</tr>
-</tbody>
-</table>
-<p><strong>表 2-2. 关键词定义</strong></p>
-<p>###2.1.3 系统组件<br>图2-2显示了使用OpenMAX进行通信的各种类型。每个组件可以有任意数量的端口用于数据通信。具有单个输出端口的组件称为源组件(Source component)。具有单个输入端口的组件称为接收器组件(sink component)。完全运行在主处理器上的组件称为主组件。在松耦合的加速器上运行的组件称为加速器组件。OpenMAX可能直接与应用程序或异构的多媒体框架集成。</p>
-<p>下面描述了三种类型的通信。非通道通信(Non-tunneled)指的是IL客户端和组件之间的数据Buffer交换机制。通道(Tunneling)指的是组件之间直接交换数据Buffer的标准机制。专有通信(Proprietary）指的是两个组件之间直接信息数据通信，也可以当通道请求（tunneling request）时，作为一个两个组件通道的替代方案。</p>
-<p><img src="img/2_2.png" alt=""></p>
-<p><strong>表 2-2. OpenMAX IL 系统组件</strong></p>
-<p>####2.1.3.1  组件Profiles<br>OpenMAX组件功能分为两个profile：base profile和interop profile。</p>
-<p>Base profile 应该支持非管道（non-tunneled）通信， 可能支持专有通信（proprietary），不支持管道（tunneled）通信。</p>
-<p>Interop profile是base profile的一个超集，它应该支持管道（tunneled）和非管道（non-tunneled）通信，可能支持专有通信。</p>
-<p>Interop profile和base profile的主要区别是是否支持管道（tunneled）通信。定义base profile的意义在于简化OpenMAX的实现难度，因为并不需要实现tunneled 通信</p>
-<p>###2.1.4 组件状态<br>每一个OpenMAX组件的运行可以视为一系列状态的转移，如图2-3。每一个组件的初始状态为unloaded。组件可以通过调用OpenMAX Core的接口进行装载。其他的状态转移可以通过直接和组件进行通信来完成。</p>
-<p>当使用不正确的数据进行状态转移的时候，组件可以进入非法（invalide）状态。例如，如果回调函数的指针指向非法地址的时候，组件可能会超时并且向IL客户端发出错误警告。IL客户端检测到非法状态时， 应该停止运行，释放，卸载并且重新加载这个组件。图2-3描绘了所有的状态均可以跳转到非法状态，但非法状态只能跳转到unload状态，并且重新加载组件。</p>
-<p><img src="img/2_3.png" alt=""></p>
-<p><strong>表 2-3. 组件状态</strong></p>
-<p>由于需要获得所需要的资源， 进入IDLE状态可能会失败。当从LOADED向IDLE转移失败时， IL客户端可以重试或者转入等待资源（Wait for resource）状态。当进入等待资源（wait for resource）状态是， 组件会向资源管理器注册，当资源可以可以获得时得到提醒。资源管理器随后将组件转至IDLE状态。IL客户端发送控制命令进行除了非法（invalide）状态以外的所以其他状态转移。</p>
-<p>IDLE状态表明组件已经获得所有所需资源，但此时并没有处理数据。EXECUTING状态表明组件正在接受数据Buffer，进行处理，并且会发出响应的回调（见第3节）。PAUSE状态保持了数据buffer执行的上下文，但并不处理或交换数据或。从PAUSED到EXECUTING的状态转移可以当组件由挂起到继续时能够处理buffer。</p>
-<p>从EXECLUTING到PAUSED或者IDLE的转移可能会导致处理过的buffer上下文丢失，这时候需要重新开始一个新的流。IDLE到LOADED的转可能会导致运行的资源例如通信Buffer的丢失。</p>
-<p>###2.1.5 组件架构<br>表2-4描述了组件的架构。注意，该组件只有一个入口（通过一个拥有一系列标准方法接口的句柄），但可能会有多个回调，取决于组件有多少个端口（port）。每个组件会调用指定的IL客户端的事件处理程序（event handler）。每个端口（port）会调用（或回调）制定的外部方法。每个端口（port）会和一个指向buffer头的队列关联。这些buffer头指向真正的buffer。命令函数（command functions）也有一个命令队列。所有的参数或者配置函数需要提供一个指定的索引并包括一个参数或配置的结构，如图2-4。</p>
-<p><img src="img/2_4.png" alt=""></p>
-<p><strong>图 2-4. OpenMAX IL API 组件架构</strong></p>
-<p>端口必须支持向IL客户端的回调。当组件是interop profile的时候，必须支持和其他组件之间的通信。</p>
-<p>###2.1.6 通信行为<br>一旦OpenMAX core获得了组件的句柄，便可以开始对组件进行配置工作。当端口的数量被确定后，组件数据通信的方法便可以调用，并且是不可以阻塞的。<br>每一个端口会指定一个特定的数据格式，并且组件会进入合适的状态。数据通信是和组件的端口（port）绑定的。IL客户端总是会调用输入端口<code>OMX_EmptyThisBuffer</code>接口（具体信息可以看3.2.2.17小节），调用输出端口（port）的<code>OMX_FillThisBuffer</code>（具体信息可以看3.2.2.18小节）。如果是同步执行，在返回之前，回调用回调函数<code>OMX_EmptyBufferDone</code> 或 <code>OMX_FillBufferDone</code>。 图2-5表述了同步执行和异步执行的对比行为。注意， IL客户端不应该假设返回和回调的先后顺序， 必须对同步和异步的OpenMAX组件都进行异构集成。</p>
-<p><img src="img/2_5.png" alt=""></p>
-<p><strong>图 2-5. 异步对比同步操作</strong></p>
-<p>与组件的数据通信总是指向特定的组件端口。每一个端口（port）有一个分配供使用的buffer，最小数量由组件制定。端口将buffer头与每一块buffer相关联。buffer头拥有buffer数据的引用，并且提供响应的元数据（metadata）。每个组件端口应该既可以分配自己的buffer也可以使用分配好的buffer，往往某一种方案会比其他的效率高。</p>
-<p>###2.1.7 管道（tunneled） buffer的分配和共享<br>本小结描述了管道（tunnel）组件的buffer分配和共享。对于给定的管道，会有一个端口提供buffer并且将buffer转递给接受的端口。最简单的情况，提供者同时会分配这些buffer。然而，在适当的情况下，管道（tunnel）组件会选择复用buffer，以免多次内存拷贝。这种做法被称为buffer共享</p>
-<p>两个端口之间的管道表示了两个端口之间的依赖关系。buffer共享扩展了这个依赖关系，使得共享同一组buffer的所有端口形成隐式依赖链。该依赖链中的一个端口分配所有的共享buffer。</p>
-<p>共享buffer是在组件内部实现的，并且对其他组件透明。接受端口并不知道提供者是分配还是复用了这些buffer。此外，输出也不知道输入是否复用了这些buffer。</p>
-<p>严格的说，一个组件只需要遵守他所需要的外部语义，并且实现buffer共享。更具体的说，外部语义要求一个组件能够做到如下：</p>
-<ul>
-<li>在所有输出端口（Provide buffer）上提供buffer。</li>
-<li>精确地在其端口上传递buffer要求。</li>
-<li>从一个输出端口向一个输入端口通过调用<code>OMX_EmptyThisBuffer</code>转递数据</li>
-<li>从一个输入端口向一个输出端口通过调用<code>OMX_FillThisBuffer</code>返回一个buffer</li>
-</ul>
-<p>如果一个组件使用共享buffer, 它需要实现如下功能：</p>
-<ul>
-<li>在某些输出端口上提供可复用的buffer</li>
-<li>当端口上有buffer通信的需求时可以共享端口。</li>
-<li>调用<code>OMX_EmptyThisBuffer</code>和其对应的回调函数<code>OMX_EmptyBufferDone</code>之间， 内部会从输出端口到另一个输出端口传递一个buffer</li>
-</ul>
-<p>OpenMAX虽然没有明确要求组件支持共享, 但定义了外部构件语义需要兼容共享方式。本节讨论在共享buffer的上下文中实现这些语义。如果没有组件共享buffer，则实现简化为一组简单的步骤和过称。</p>
-<p>####2.1.7.1  相关术语<br>本节描述了tunneled buffer的分配和共享。图2-6描绘了概念。</p>
-<p><img src="img/2_6.png" alt=""></p>
-<p><strong>图 2-6. Buffer分配和共享关系的例子</strong></p>
-<p>在一对管道连接的端口中，端口会调用他的邻居端口<code>UseBuffer</code>接口告知自己为输出端口。输出端口并不一定需要分配内存，它可以复用同组件下另一端口的buffer。在图2-6中，端口a和c描绘了输出端口。</p>
-<p>从邻居端口接收到<code>UseBuffer</code>调用的端口是一个输出端口。图2-6中的端口b和d描绘了出入端口。</p>
-<p>一个端口的管道端口是指其共享管道的邻居端口。例如，在图2-6中端口b是端口a的管道端口。同理，a也是b的管道端口。</p>
-<p>一个分配器端口（allocator port）是一个输出端口，而且可有分配自己的buffer。图2-6中的端口a是唯一的分配器端口。</p>
-<p>共享端口（sharing port）是可以复用同一组件中其他端口buffer的端口。例如，图2-6中端口c就是共享端口。</p>
-<p>一个管道组件指的是至少有一个管道的组件。</p>
-<p>端口buffer的需求包括了buffer的数量和每块buffer的大小。buffer所需的最大值是指所需数量的最大值和所需大小的最大值。一个端口通过其管道端口调用<code>OMX_GetParameter</code>接口，并传入结构体<code>OMX_PORTDEFINITIONTYPE</code>参数来获得buffer的需求。注意，一个端口可能从其共享buffer的端口而不是接受<code>OMX_GetParameter</code>接口来确定其buffer的需求，因为他们隶属于同一个组件。</p>
-<p>####2.1.7.2  IL客户端组建设置<br>为了配置管道组件，IL客户端需要按顺序进行下面的操作：</p>
-<ol>
-<li>加载所有的管道组件并配置这些组件的管道。</li>
-<li>将所有的管道组件的状态由loaded转为idle。</li>
-</ol>
-<p>如果IL客户端没有按此进行操作，一个管道组件可能由于组件间的依赖关系而永远无法转移到idle状态。</p>
-<p>####2.1.7.3  共享时组件状态由loaded到idle的转移<br>在<code>OMX_SetupTunnel</code>调用时，管道的两个端口会确立哪个端口（输入或输出）是buffer提供者。因此，当一个组件被要求从loaded转移到idle时，它会知道它所有提供者和接受者端口的角色。</p>
-<p>当命令组件由loaded转移到idle的时候，它需要按顺序进行下面的操作：</p>
-<ul>
-<li><p>1.组件决定那种buffer共享它需要实现。如果有，需要遵循下列规则：</p>
-<ul>
-<li>a) 它的一个输入端口到一个或多个输出端口、一个输出端口到一个输入端口。</li>
-<li>b) 只有提供者端口可以复用其他端口的buffer。</li>
-<li>c) 一个组件在多个输出端口上共享buffer需要输出的端口是只读的，如图2-7所示。</li>
-</ul>
-</li>
-</ul>
-<p><img src="img/2_7.png" alt=""></p>
-<p><strong>图 2-7. 可能的共享关系</strong></p>
-<ul>
-<li>2.组件确定哪个是其供应端口和分配器端口（如果有有的话）。如果不从同组件的非供应端口复用buffer是，一个供应端口也是一个分配端口（即，不是一个分享端口）。在图2-8中，供应端口是有箭头指向外面的端口，非供应端口是有箭头指向它的端口。端口上的箭头表明了共享关系。端口旁边的正方形（buffer）表明了这是一个分配器端口。</li>
-</ul>
-<p><img src="img/2_8.png" alt=""></p>
-<p><strong>图 2-8. 确定分配器</strong></p>
-<ul>
-<li>3.组件在每个分配器端口上分配buffer的策略如下：<ul>
-<li>a) 每个复用分配器端口buffer的端口，分配器端口会确定其共享端口的buffer需求。见下面的条例A。</li>
-<li>b) 分配器端口通过调用<code>OMX_GetParameter</code>决定其管道端口buffer要求。参见条例B。</li>
-<li>c) 分配器端口根据自己的最大需求，管道端口的要求，和所有的共享端口的要求分配buffer。</li>
-<li>d) 分配器端口通过调用<code>OMX_SetParameter</code>的<code>OMX_IndexParamPortDefinition</code>设置合适的<code>nBufferCountActual</code>值，来通知非供应端口实际的buffer数量。见下面的条例E。</li>
-<li>e) 分配器端口和每个复用其buffer的共享端口共享buffer。见条例D。</li>
-<li>f) 每个分配的buffer，分配器端口调用其管道端口的<code>OMX_UseBuffer</code>接口。参见条例C。</li>
-</ul>
-</li>
-</ul>
-<p>组件还应遵循下列条例：</p>
-<ul>
-<li>A. 一个共享端口要确定其需求，共享端口应先调用其管道端口的<code>OMX_GetParameter</code>来查询需求，然后返回自己和其管道端口的最大要求。</li>
-<li>B. 当一个非供应端口接受到<code>OMX_GetParameter</code>调用来查询自己的buffer需求是，它需要首先确定所有复用自己buffer的端口的需求（见条例A），然后返回自己和其他这些端口的最大值。</li>
-<li>C. 当一个非供应端口接受到来自其管道端口的<code>OMX_GetParameter</code>调用，它需要把这些buffer和组件内所有和它复用buffer的端口共享。</li>
-<li>D. 当端口A和组件内复用其buffer的端口B共享一个buffer时，端口B需要调用 <code>OMX_UseBuffer</code>并且将buffer传递给他的管道端口。</li>
-<li>E. 当非供应端口接受到其管道端口的<code>OMX_SetParameter</code> 的<code>OMX_IndexParamPortDefinition</code>调用时，供应端口应该将值<code>nBufferCountActual</code>传递给所有复用其buffer的端口。同理，每一个通过这种方式收到 <code>nBufferCountActual</code>值的供应端口，需要通过调用传递<code>OMX_SetParameter</code> 的<code>OMX_IndexParamPortDefinition</code>的接口将<code>nBufferCount</code> 值给他的管道端口， buffer的实际数量以这种方式在整个依赖链中传播。</li>
-</ul>
-<p>当一个组件获得所需的所有buffer，便可以由loaded状态转为idle状态。</p>
-<p>在实践中，可以有如下的直接映射：</p>
-<ul>
-<li>步骤1~3对应loaded向idle状态的转变</li>
-<li>条例A对应一个共享端口的buffer需求的子函数</li>
-<li>条例B对应<code>OMX_GetParameter</code>的实现</li>
-<li>条例C对应<code>OMX_UseBuffer</code>的实现</li>
-<li>条例D对应一个端口向另一个端口分享buffer的子函数</li>
-</ul>
-<p>为了搞清楚合理分配buffer的这些步骤和条例，可以参考图2-9.注意这个例子是用于实践上面步骤和条例的，实际的用例会负责的多。</p>
-<p><img src="img/2_9.png" alt=""></p>
-<p><strong>图 2-9. Buffer分配的例子</strong></p>
-<p>下面集中讨论组件3如何到idle状态的，其他的组件类似。</p>
-<p>当IL客户端命令组件3从loaded向idle转移时，它需要遵循下面的步骤：</p>
-<ol>
-<li>组件3注意到它可以重用端口d的buffer，因为端口e是一个供应者端口。组件3建立了端口d到端口e的共享关系。</li>
-<li>既然端口d是一个供应者端口并且不复用buffer，那么端口d是一个分配者端口。</li>
-<li>端口3分配并部署端口d的buffer:<ul>
-<li>a) 既然端口e复用端口d的buffer，组件3确定端口e的需求。根据条例A， 端口e调用端口f的<code>OMX_GetParameter</code>确定f的需求，并将自己的和f的最大值报告出去。</li>
-<li>b) 端口d调用端口c的<code>OMX_GetParameter</code>接口确定他的buffer需求。根据条例B，端口C需要确定端口b的buffer需求。更具提条例A，端口b返回自己和a的最大需求。端口c得到这个需求在和自己的需求比较返回最大值。</li>
-<li>c) 端口d根据自己的需求和端口c，e返回的最大值分配buffer， 分配的buffer是根据端口a,b,c,d,e,f需求的最大值确定的，所有的端口都复用端口d的buffer。</li>
-<li>d) 既然端口e复用端口d的buffer，组件3用端口e分享这些buffer。根据条例D，端口e调用端口f的<code>OMX_UseBuffer</code>接口以分享这些buffer。</li>
-<li>e) 对于每块分配的buffer，端口d调用端口c的 <code>OMX_UseBuffer</code>。根据提条例C，端口C和B分享这些buffer。而端口b根据条例D调用端口a<code>OMX_UseBuffer</code></li>
-</ul>
-</li>
-</ol>
-<p>至此，所有组件的所有端口都有自己的buffer，所有的组件都可以转移到idle状态。</p>
-<p>####2.1.7.4  使用共享buffer的协议<br>当一个输入端口收到<code>OMX_EmptyThisBuffer</code>调用得到一块共享buffer时，输入端口可以通过遵循下面的准则复用这块buffer到其共享端口：</p>
-<ul>
-<li>输出端口要在其管道端口的返回相应的回调函数<code>OMX_EmptyBufferDone</code>前，调用其管道端口的<code>OMX_EmptyThisBuffer</code>方法。</li>
-<li>输入端口不能在所有的与其共享buffer的输出端口返回<code>OMX_EmptyBufferDone</code>之前返回<code>OMX_EmptyBufferDone</code>。</li>
-</ul>
-<p>####2.1.7.5  非共享情况下组件状态由loaded到idle的转移<br>如果一个组件没有共享buffer，和共享buffer的情况相比起来，组件的实现的步骤和准则会简单一些：</p>
-<p>一个非共享组件要从loaded转移到idle状态时，它需要按下面的顺序进行操作：</p>
-<ol>
-<li>组件确定那些buffer共享需要实现。在这情况下，没有共享需要实现。</li>
-<li>组件确定那些是供应端口，如果有，他们都是分配者端口。所有的供应端口都是分配者端口。</li>
-<li>组件按照下面准则为所有的分配者端口分配buffer：<ul>
-<li>a. 由于没有buffer共享，组件不需要获取共享端口的需求。</li>
-<li>b. 分配器通过调用<code>OMX_GetParameter</code>来确定其管道端口的buffer需求。</li>
-<li>c. 分配器端口根据自身和其管道端口对buffer需求的最大值来分配buffer。</li>
-<li>d. 由于没有共享，没有buffer需要转递到共享端口。</li>
-<li>e. 对每一块分配出来的buffer， 分配器端口调用其管道端口的<code>OMX_UseBuffer</code></li>
-</ul>
-</li>
-</ol>
-<p>所有共享组件的准则不适用与非共享组件。</p>
-<p>###2.1.8 端口重连接<br>端口的重连接可以使一个管道组件被另一个管道组件替换而不需要卸载周围的组件。图2-10，组件B1被组件B2替换。要做到这一点，组件A的输出端口和组件B的输入端口首先应该用disable的命令禁用。一旦所有所有分配的buffer回到他们的拥有者并且释放，组件A的输出端口便可以连接到组件B2.组件B1输出端口和组件C的输入端口应该给予同样的禁用命令。所有分配buffer回到他们的拥有者并被释放后，组件C的输入端口可以重新连接到组件B2的输出端口。然后，可以给所有的端口发启用命令。</p>
-<p><img src="img/2_10.png" alt=""></p>
-<p><strong>图 2-10. 端口重连接</strong></p>
-<p>在某些情况下，例如音频，将一个组件重新连接到另一个组件，老的组件淡出新的组件淡入也是可以的。图2-11展示了这是如何工作的。步骤1，组件A发送数据给组件B1。步骤2，IL客户端首先建立组件A和B2之间的管道，再建立B2和C之间的管道，然后启用两个管道上的所有端口。组件C可能将B1和B2通过不同的增益进行混音。步骤3，组件B1和组件A，C连接的端口都被禁用，B1的资源也会被释放。</p>
-<p><img src="img/2_11.png" alt=""></p>
-<p><strong>图 2-11. 组件重连接</strong></p>
-<p>###2.1.9 队列和清空<br>一个单独的命令队列能够在使用非管道通信时让组件将没有处理的buffer清空并返回给IL客户端，或在使用管道通信是返回给管道端口。图2-12，假设端口有一个输出端口，它使用了IL客户端分配的buffer。在这个例子中，客户端在发送清空命令之前发送了一串共5块buffer给组件。处理清空命令时，组件按照原先的顺序返回每一个未处理的buffer，并触发事件处理程序通知IL客户端。有两块buffer已经在收到清空命令之前被处理了。组件返回剩下的三块buffer并产生一个事件。IL客户端应该等待此时间然后再去尝试释放这个组件。</p>
-<p><img src="img/2_12.png" alt=""></p>
-<p><strong>图 2-12. 清空队列</strong></p>
-<p>###2.1.10  标记buffer<br>当遇到标记buffer是，IL客户端还可以触发一个事件。一块buffer可以在其头部被标记。标记在OpenMAX组件的输入端口和输出端口直接内部传递。当遇到这块标记buffer是，组件可以发送一个时间给IL客户端。图2-13显示了这是怎么工作的。</p>
-<p><img src="img/2_13.png" alt=""></p>
-<p><strong>图 2-13. 标记buffer</strong><br>IL客户端发送一个命令来标记buffer。组件的输出端口发送的下一个buffer被标记成B1。组件B处理buffer B1后提供了加入此标记的buffer B2.当组件C从输入端口中收到这个标记过的buffer B2，组件处理这块buffer出发事件处理程序。</p>
-<p>###2.1.11  时间和回调<br>组件发送给客户端一共有六种事件：</p>
-<ul>
-<li>任何时间都可能遇到错误时间</li>
-<li>命令成功处理后会触发一个命令完成通知时间</li>
-<li>组件检测到一块标记的buffer时会触发标记buffer事件</li>
-<li>当组件改变其端口设置时会触发端口设置改变通知事件</li>
-<li>码流结束时（EOS）会触发buffer标志事件。</li>
-<li>组件获得正在等待的资源时会触发资源获得事件。</li>
-</ul>
-<p>端口标记buffer的处理回调指示了buffer的可用性或表明buffer是需要的。</p>
-<p>###2.1.12  Buffer载荷(Payload)<br>端口的配置用于确定传输到组件端口上的数据格式，但配置并没有定义数据怎么样存储在buffer中的。</p>
-<p>通常有三种情况描述了数据如何填充buffer，每一种都有其优点。</p>
-<p>在所有的情况下，buffer中有效的数据范围和位置通过buffer头部中的参数<code>pBuffer</code>, <code>nOffset</code> 和<code>nFilledLength</code>来定义。参数<code>pBuffer</code>指向了buffer的起始地址。参数<code>nOffset</code>指示了buffer的起始位置和有效数据开始之间的字节数。参数<code>nFilledLength</code>指定了buffer中连续有效数据的字节数。因此buffer中的有效数据位于<code>pBuffer</code> + <code>nOffset</code> 和 <code>pBuffer</code> + <code>nOffset</code> + <code>nFilledLength</code>之间。</p>
-<p>下面的案例代表了在编解码时输入或输出到一个组件的压缩过的数据。在所有的情况中，buffer仅为数据提供传输机制，而对内容没有特别的要求。对内容的要求有端口配置参数定义。</p>
-<p>buffer的阴影部分表示数据，白色部分表示没有数据。</p>
-<p>情况1：每块buffer全部或部分填充。在含有压缩数据帧的时候，帧由f1到fn表示。</p>
-<p><img src="img/2_13_1.png" alt=""></p>
-<p>情况1的优点在于解码回放的时候。buffer可以容纳多个帧以减少解码时候的所需的buffer数量。但这种情况下，解码器需要在解码帧的时候解析数据。它也要求解码器组件有一个帧生成buffer，用于放置被解析的数据或维护下一个buffer才能来的完成的部分帧。</p>
-<p>情况2：每一块buffer都被完整的压缩数据帧填充。</p>
-<p><img src="img/2_13_2.png" alt=""></p>
-<p>情况2不同与情况1，它需要压缩的数据首先被解析一遍以保证只有完整的帧被放在buffer中。案例2 也需要解码组件解析数据，但可能不需要额外的工作buffer用于解析帧。</p>
-<p>情况3：每一块buffer仅被一个压缩数据帧填充。</p>
-<p><img src="img/2_13_3.png" alt=""></p>
-<p>案例3的好处是解码组件并不需要解析数据。解析的工作在源组件中完成。但对于这种方式，数据传输是瓶颈。数据传输一次只能传递一帧。基于这种时间，每一帧传输的消耗可能比从buffer中解析帧有更大的消耗。</p>
-<p>一个编码器或解码器至少要支持第一种情况。根据定义，编解码其可以支持情况1，那么他可以支持情况2和3，但只有但压缩格式允许帧边界的字节对其。情况2或3的可能没有意义，例如，在RTP-payload格式，bandwidth-efficient模式的AMR的配置中。这种格式定义并不是字节对其，并不适合这些情况定义的字节对齐的帧边界。</p>
-<p>当为解码器的输入或者编码器的输出用压缩数据填充一块buffer的时候，只有当帧不是字节对齐时才会遇到限制填充完整帧的问题。在格式的协议之外必须加入额外的填充。之后填充会被删除，因为数据无法被附加。这需要拥有标准规范以外的填充位的知识。同样，如果填充不到位，无法保证标准符合端口配置的标准规范，完整的帧无法被放入buffer中。在这两种情况下，必须知道如果处理这种情况，而且每个组件是不同的。</p>
-<p>为了保证通用性，buffer中存储的内容不能假设或要求是完整的若干帧，但对未压缩的数据格式，至少有一个完整数据单元会存在与一个buffer中。压缩数据格式不限制每个buffer中传递的内容量。</p>
-<p>###2.1.13  Buffer标记和时间戳<br>buffer标记与buffer包含的数据的某些属性关联。buffer的时间戳以微秒为单位，表示数据被显示的时间。一旦一个时间戳和一块buffer关联，没有组件应该修改这个用于速率控制或同步的时间戳。同步是在时钟组件中实现的。</p>
-<p>buffer元数据（即标记和时间戳）适用于buffer中的第一个逻辑单元。因此，buffer中存在多个逻辑单元是，元数据适用于起始边界在buffer中的逻辑单元。除非另有规定（例如，一个标记的定义），一个组件收到有标记或者时间戳的逻辑单元应该将这个元数据拷贝到输入产生的逻辑输出单元中。</p>
-<p>###2.1.14  同步<br>同步是靠启用时钟组件上的同步端口来实现的。这些端口和时钟组件被定义在其他（other）域，但操作协议和方法和数据端口一致。时钟组件维护了一个媒体时钟，基于音视频参考时钟，用于跟踪媒体流中的位置。时钟组件通过同步端口发送包含时间信息buffer到客户端组件（由媒体时间更新，包含了媒体时钟的当前位置，缩放和状态）。客户端组件可以通过要求时钟组件发送时间戳来给一个操作确定执行的时间（例如，视频帧的显示）。在这个例子中，客户端组件当收到请求执行时执行操作。图2-14展示了时间和数据buffer流程的一个例子。</p>
-<p><img src="img/2_14.png" alt=""></p>
-<p><strong>图 2-14. 时间和数据buffer的流程</strong></p>
-<p>###2.1.15  速率控制<br>时钟组件还通过暴露一组控制媒体时钟的配置实现了所有的速率控制。IL客户端可能会改变媒体时钟的缩放因子来实现播放，快进，快退，暂停和慢动作特技。IL客户端可以通过改变媒体时钟的状态开始或停止时钟。时钟组件通过向所有的同步端口发送新的缩放或状态的媒体时间更新消息来改变使他所有的客户端组件知道媒体时钟缩放和状态的变化。虽然组件无法改变buffer的时间戳来响应缩放，但他可以响应的改变他的处理流程。例如，音频组件可以在特技播放时调整音调或完全停止输出。</p>
-<p>###2.1.16  组件注册<br>通常组件是如何注册到核心是核心自己来定义的。</p>
-<p>然而，如果核心支持与组件的静态连接，那么他将支持一个标准的在编译时的组件注册机制，如第3节所述。因此，供应商可以提供组件所有核心支持的合适静态连接的组件，这是通过将组件信息放入数据结构中，这是核心和组件的联系。</p>
-<p>一个组件可以使用这个机制静态注册，但他的大部分代码是动态加载的。</p>
-<p>###2.1.17  资源管理器<br>这一小节讨论OpenMAX IL API中的资源管理器的角色。</p>
-<p>####2.1.17.1  资源管理的需求<br>当组件由于资源不足而不发进入idle状态时，IL客户端不知道缺乏那些资源或是那些组件正在使用这个组员。因此，IL客户端无法关掉所有的组件强制释放音频流（例如），除非知道IL组件是怎么具体实现的。这两种情况都不是可行的选择。这些情况需要IL的资源管理。</p>
-<p>OpenMAX的一个目的是提供给上层一个硬件无关的软件层。硬件无关的目标可以通过实现指定资源管理的下列要求来实现：</p>
-<ul>
-<li>IL客户端（例如，通常是一个软件系统的多媒体插件）不需要知道IL实现的细节或组件使用的资源。例如，IL客户端可能不知道组件是否是硬件加速的。</li>
-<li>在资源冲突的情况下，IL客户端可以信赖组件在不同硬件平台上的实现是同一的行为。</li>
-<li>一个IL客户端不应该和硬件供应商的资源管理器直接连接，有下面两个原因。<ul>
-<li>这种方法违背了硬件无关性的目标。</li>
-<li>这种方法增加了IL客户端相当大的工作，因为影响了IL客户端在多个硬件平台上的可复用性。</li>
-</ul>
-</li>
-</ul>
-<p>虽然资源管理没有在OpenMAX IL API的1.0版本中彻底解决，“钩子（hook）”资源管理器已经放在了相应的位置包括行为的准则，组件的优先级，资源管理相关的组建状态。这些“钩子”作为后续版本OpenMAX IL API的基础。</p>
-<p>在进一步讨论之前，资源管理和策略的术语有必要阐述一下：</p>
-<ul>
-<li>资源管理负责管理组件对有限资源的访问。资源管理器将知道有多少特定的资源可用，那些组件使用当前资源，以及组件使用的资源有多少。资源管理器将推荐策略，组件可以根据资源可用性和冲突抢占或继续。</li>
-<li>策略负责管理组件链或流。策略管理器根据资源管理、系统配置、应用程序请求或其他因素来确定是否允许运行或继续</li>
-</ul>
-<p>####2.1.17.2  架构假设<br>下面的讨论提出了两个关于OpenMAX IL的架构假设:</p>
-<ul>
-<li>假设1：一个框架包含客户端和OpenMAX IL之间的策略管理器</li>
-<li>假设2：一个系统可以有一个或多个硬件平台，有不同的OpenMAX组件，并被硬件特定的资源管理器管理</li>
-</ul>
-<p>这些假设如上层架构图图2-15所示。如果一个系统没有架构（即，用户程序接口直接与IL连接），OpenMAX IL API协议没有规定资源管理是如何进行的。假设2规定系统有一个同一集中的资源管理器。</p>
-<p><img src="img/2_15.png" alt=""></p>
-<p><strong>Figure 2-15. 架构假设</strong></p>
-<p>为保证资源冲突是组件的行为是一直的，组件优先级和行为准则的基本定义是必要的。</p>
-<p>####2.1.17.3  组件优先级</p>
-<p>每一个IL组件有一个优先级值（一个OMX_32整型数），由IL客户端设置。优先级的实际范围可以留给平台，但优先级的顺序是重要的，并且在IL的实现中要一致：递减的优先级顺序。即0是最高优先级。下面的准则也适用：当相同优先级组件进行比较时，最近获得资源的组件应该有更高的优先级。</p>
-<p>####2.1.17.4  行为准则<br>IL层定义了下面的行为准则：</p>
-<ul>
-<li>错误<code>OMX_ErrorInsufficientResources</code>仅当组件试图进入idle状态但没有足够资源或是资源无法被低优先级的组件释放时调用。</li>
-<li>组件不知道当他试图进入idle状态时会发生资源抢占，资源需要被低优先级的组件释放。</li>
-<li>当一个组件已经被抢占，当从Executing或pause状态转移到idle时，发出<code>OMX_ErrorResourcesPreempted</code>错误，如果从idle转移到loaded状态时，发出 <code>OMX_ErrorResourcesLost</code> 错误给IL客户端，</li>
-<li>如果IL客户端想知道什么时候和流相关的组件可以被启动或继续，IL客户端则应该要求当资源可用时被通知。这是通过将组件转移到<code>OMX_StateWaitForResources</code>状态。当资源可用时，组件自动进入idle状态。当客户端收到组件进入idle状态的通知是，它会尝试将其他的链上的组件也转移到idle状态。这种向idle状态的资源的自动转移可以确保当多个IL客户端等待同一个资源时，IL客户端可以当资源可用时立即开始或恢复。如果组件自动转移到loaded状态，其他的IL客户端可以首先获得资源。这些行为准则可以覆盖IL客户端和组件之间的交互。</li>
-</ul>
-<p>####2.1.17.5  硬件厂商资源管理器<br>要实现行为准则，需要在IL层下拥有一个硬件厂商的资源管理器，并执行下面的功能：</p>
-<ul>
-<li>实现并管理等待队列。</li>
-<li>跟踪可用资源。</li>
-<li>跟踪每一个拥有资源的组件和被使用的资源。</li>
-<li>当一个高优先级组件请求资源时，通知一个或多个组件让他们放弃他们的资源。</li>
-<li>当资源可用时通知等待资源高优先级的组件。</li>
-</ul>
-<p>组件和硬件资源管理器之间的实际交互是基于特定厂商并超出了本文档的范围。第三节提供了优先级和资源管理相关参数结构和用例的更多细节。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;#OpenMAX IL 介绍和框架&lt;br&gt;本章介绍了OpenMAX的特点和框架&lt;/p&gt;
-&lt;p&gt;##2.1  OpenMAX IL 简介&lt;br&gt;OpenMAX IL层API定义了一个用于在系统提供的软件组件的接入层软件接口。目的是让拥有不同方法的组件提供一个标准化的接口和命令
-    
-    </summary>
-    
-    
-  </entry>
   
-  <entry>
-    <title>OpenMax标准协议 第三章 OpenMAX IL控制API</title>
-    <link href="http://yoursite.com/2017/04/01/chapter3/"/>
-    <id>http://yoursite.com/2017/04/01/chapter3/</id>
-    <published>2017-04-01T03:20:10.000Z</published>
-    <updated>2017-04-06T03:28:50.667Z</updated>
+  
+
+  
     
-    <content type="html"><![CDATA[<p>#3 OpenMAX IL控制API<br>OpenMAX IL API允许IL客户端控制音频、视频、图像领域上的组件。“其他”领域还包括额外的一些功能，例如音视频同步。OpenMAX IL API的使用者往往是一个多媒体框架。在本文档的其他部分，OpenMAX IL API的使用者指的就是IL客户端。</p>
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="xfdingustc's note" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="#3 OpenMAX IL控制APIOpenMAX IL API允许IL客户端控制音频、视频、图像领域上的组件。“其他”领域还包括额外的一些功能，例如音视频同步。OpenMAX IL API的使用者往往是一个多媒体框架。在本文档的其他部分，OpenMAX IL API的使用者指的就是IL客户端。
+OpenMAX IL API定义了一组头文件，他们的名称是：
+
+OMX_Types.h: OpenMA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenMax标准协议 第三章 OpenMAX IL控制API">
+<meta property="og:url" content="http://yoursite.com/2017/04/01/chapter3/index.html">
+<meta property="og:site_name" content="xfdingustc's note">
+<meta property="og:description" content="#3 OpenMAX IL控制APIOpenMAX IL API允许IL客户端控制音频、视频、图像领域上的组件。“其他”领域还包括额外的一些功能，例如音视频同步。OpenMAX IL API的使用者往往是一个多媒体框架。在本文档的其他部分，OpenMAX IL API的使用者指的就是IL客户端。
+OpenMAX IL API定义了一组头文件，他们的名称是：
+
+OMX_Types.h: OpenMA">
+<meta property="og:image" content="http://yoursite.com/img/3_1.png">
+<meta property="og:image" content="http://yoursite.com/img/3_2.png">
+<meta property="og:image" content="http://yoursite.com/img/t3_9.png">
+<meta property="og:image" content="http://yoursite.com/img/t3_10.png">
+<meta property="og:image" content="http://yoursite.com/img/3_3.png">
+<meta property="og:image" content="http://yoursite.com/img/3_4.png">
+<meta property="og:image" content="http://yoursite.com/img/3_5.png">
+<meta property="og:image" content="http://yoursite.com/img/3_6.png">
+<meta property="og:image" content="http://yoursite.com/img/3_7.png">
+<meta property="og:image" content="http://yoursite.com/img/3_8.png">
+<meta property="og:image" content="http://yoursite.com/img/3_9.png">
+<meta property="og:image" content="http://yoursite.com/img/3_10.png">
+<meta property="og:image" content="http://yoursite.com/img/3_11.png">
+<meta property="og:image" content="http://yoursite.com/img/3_12.png">
+<meta property="og:image" content="http://yoursite.com/img/3_13.png">
+<meta property="og:image" content="http://yoursite.com/img/3_14.png">
+<meta property="og:image" content="http://yoursite.com/img/3_15.png">
+<meta property="og:image" content="http://yoursite.com/img/3_16.png">
+<meta property="og:image" content="http://yoursite.com/img/3_17.png">
+<meta property="og:image" content="http://yoursite.com/img/3_18.png">
+<meta property="og:image" content="http://yoursite.com/img/3_19.png">
+<meta property="og:image" content="http://yoursite.com/img/3_20.png">
+<meta property="og:updated_time" content="2017-04-06T03:28:50.667Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenMax标准协议 第三章 OpenMAX IL控制API">
+<meta name="twitter:description" content="#3 OpenMAX IL控制APIOpenMAX IL API允许IL客户端控制音频、视频、图像领域上的组件。“其他”领域还包括额外的一些功能，例如音视频同步。OpenMAX IL API的使用者往往是一个多媒体框架。在本文档的其他部分，OpenMAX IL API的使用者指的就是IL客户端。
+OpenMAX IL API定义了一组头文件，他们的名称是：
+
+OMX_Types.h: OpenMA">
+<meta name="twitter:image" content="http://yoursite.com/img/3_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/01/chapter3/"/>
+
+
+
+
+
+  <title> OpenMax标准协议 第三章 OpenMAX IL控制API | xfdingustc's note </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xfdingustc's note</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/01/chapter3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xfdingustc">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xfdingustc's note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                OpenMax标准协议 第三章 OpenMAX IL控制API
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-01T11:20:10+08:00">
+                2017-04-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>#3 OpenMAX IL控制API<br>OpenMAX IL API允许IL客户端控制音频、视频、图像领域上的组件。“其他”领域还包括额外的一些功能，例如音视频同步。OpenMAX IL API的使用者往往是一个多媒体框架。在本文档的其他部分，OpenMAX IL API的使用者指的就是IL客户端。</p>
 <p>OpenMAX IL API定义了一组头文件，他们的名称是：</p>
 <ul>
 <li><code>OMX_Types.h</code>: OpenMAX IL使用的数据类型</li>
@@ -1957,131 +1946,350 @@
 <p>WaitForResourceRequest和WaitForResourceResponse两个函数如图3-19所示，不再本协议中定义，但为组件和资源管理器交互的例子。</p>
 <p>IL客户端可以决定在一个特定的时间停止等待。在这种情况下，它应该请求组件切换回loaded状态，如图3-20所示。</p>
 <p><img src="img/3_20.png" alt=""><br><strong>图 3-20. 从等待状态中移除组件</strong>        </p>
-]]></content>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/31/chapter1/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/01/chapter2/" rel="prev" title="OpenMax标准协议 第二章 OpenMAX IL 介绍和框架">
+                OpenMax标准协议 第二章 OpenMAX IL 介绍和框架 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
     
-    <summary type="html">
-    
-      &lt;p&gt;#3 OpenMAX IL控制API&lt;br&gt;OpenMAX IL API允许IL客户端控制音频、视频、图像领域上的组件。“其他”领域还包括额外的一些功能，例如音视频同步。OpenMAX IL API的使用者往往是一个多媒体框架。在本文档的其他部分，OpenMAX IL AP
-    
-    </summary>
-    
-    
-  </entry>
+  </div>
+
+
+        </div>
+        
+          
   
-  <entry>
-    <title></title>
-    <link href="http://yoursite.com/2017/03/31/chapter1/"/>
-    <id>http://yoursite.com/2017/03/31/chapter1/</id>
-    <published>2017-03-31T03:00:43.043Z</published>
-    <updated>2017-03-31T02:59:52.669Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="1-1-介绍"><a href="#1-1-介绍" class="headerlink" title="1.1  介绍"></a>1.1  介绍</h2><p>本文档详细介绍了OpenMAX集成层（IL）的API。由Khronos Group提出， 用于音视频以及图像编解码在嵌入式/移动设备上的底层接口的开放标准。主要目标是将编解码器进行系统抽象，使之适配与各种操作系统和软件平台。</p>
-<h3 id="1-1-1-关于Khronos-Group"><a href="#1-1-1-关于Khronos-Group" class="headerlink" title="1.1.1 关于Khronos Group"></a>1.1.1 关于Khronos Group</h3><p>The Khronos Group is a member-funded industry consortium focused on the creation of open standard APIs to enable the authoring and playback of dynamic media on a wide variety of platforms and devices. All Khronos members may contribute to the development of Khronos API specifications, may vote at various stages before public deployment, and may accelerate the delivery of their multimedia platforms and applications through early access to specification drafts and conformance tests. The Khronos Group is responsible for open APIs such as OpenGL ES, OpenML, and OpenVG.</p>
-<p>Khronos Group是一个行业联盟成员资助重点的API使创作，在多种平台和设备的动态媒体播放开放标准的建立。所有Khronos成员可能有助于Khronos API规范的发展，可能会投票前公共部署的各个阶段，并可以通过早期访问规范的草稿和一致性测试加速多媒体平台和应用的交付。Khronos Group负责如OpenGL ES API开放，开放多媒体程序库，和OpenVG。</p>
-<h3 id="1-1-2-OpenMAX简史"><a href="#1-1-2-OpenMAX简史" class="headerlink" title="1.1.2 OpenMAX简史"></a>1.1.2 OpenMAX简史</h3><p>The OpenMAX set of APIs was originally conceived as a method of enabling portability of codecs and media applications throughout the mobile device landscape. Brought into the Khronos Group in mid-2004 by a handful of key mobile hardware companies, OpenMAX has gained the contributions of companies and institutions stretching the breadth of the multimedia field. As such, OpenMAX stands to unify the industry in taking steps toward media codec portability. Stepping beyond mobile platforms, the general nature of the OpenMAX IL API makes it applicable to all media platforms.</p>
-<p>API集的OpenMAX原先是一种使编解码器和媒体在移动设备应用程序的可移植性景观的方法。进入Khronos集团在2004年由少数关键的移动硬件公司，OpenMAX取得贡献的公司和机构延伸的多媒体领域的广度。因此，OpenMAX站统一采取措施向媒体编解码器的可移植性的行业。跨越移动平台，对OpenMAX IL的一般性质的API使得它适用于所有媒体平台。</p>
-<p>##1.2  OpenMAX集成层<br>The OpenMAX IL API strives to give media codecs portability across an array of platforms. The interface abstracts the hardware and software architecture in the system. Each codec and relevant transform is encapsulated in a component interface. The OpenMAX IL API allows the user to load, control, connect, and unload the individual components. This flexible core architecture allows the Integration Layer to easily implement almost any media use case and mesh with existing graph-based media frameworks.</p>
-<p>OpenMAX IL的API力求给媒体编解码器在一系列的平台的可移植性。接口抽象了系统的硬件和软件体系结构。每个编解码器和相关的变换封装在一个组件接口。OpenMAX IL的API允许用户负荷，控制，连接，和卸载单独的组件。这种灵活的核心架构允许集成层轻松地实现几乎所有的媒体使用情况和网格与现有的基于图形的媒体框架。</p>
-<p>###1.2.1 主要特性和优点<br>The OpenMAX IL API gives applications and media frameworks the ability to interface with multimedia codecs and supporting components (i.e., sources and sinks) in a unified manner. The codecs themselves may be any combination of hardware or software and are completely transparent to the user. Without a standardized interface of this nature, codec vendors must write to proprietary or closed interfaces to integrate into mobile devices. In this case, the portability of the codec is minimal at best, costing many development-years of effort in re-tooling these solutions between systems. Thus, the IL incorporates a specialized arsenal of features, honed to combat the problem of portability among many vastly different media systems. Such features include:</p>
-<p>OpenMAX IL的API为应用程序和多媒体框架的能力和多媒体编解码器的接口和支持组件（即，源和汇）在一个统一的方式。可能是自己的编解码器的硬件或软件的任意组合，对用户是完全透明的。如果没有这种标准化的接口，编解码器的厂商必须写入专有或封闭的接口，以整合到移动设备。在这种情况下，可编解码器的可移植性是最小的，成本的许多发展多年的努力，在重新设计这些解决方案之间的系统。因此，IL将专业阿森纳的特点，磨练战斗的便携性问题的许多不同的媒体系统之间。这些特点包括：</p>
-<ul>
-<li>灵活的基于组件的API Core</li>
-<li>可以轻松添加新的编解码器</li>
-<li>Coverage of targeted domains (audio, video, and imaging) while remaining easily extensible by both the Khronos Group and individual vendors目标域（音频，视频，覆盖范围和成像）而其余的易扩展由Khronos集团和个体商贩</li>
-<li>Capable of being implemented as either static or dynamic libraries能够被实现为静态或动态库</li>
-<li>Retention of key features and configuration options needed by parent software (such as media frameworks)保留关键特征与配置选项needed by父母软件（such as媒体框架）</li>
-<li>Ease of communication between the client and the codecs and between codecs themselves在客户端与编解码器和之间的通信编解码器之间自己缓解</li>
-</ul>
-<h3 id="1-2-2-设计理念"><a href="#1-2-2-设计理念" class="headerlink" title="1.2.2 设计理念"></a>1.2.2 设计理念</h3><p>As previously stated, the key focus of the OpenMAX IL API is portability of media codecs. The diversity of existing devices and media implementation solutions necessitates that the OpenMAX IL target the higher level of the media software stack as<br>the key initial user. For most operating systems, this means an existing media framework. Thus, much of the OpenMAX IL API is defined by requirements generated by the needs of media frameworks. Similarly, the IL is designed to allow the media framework layer to be as lightweight as possible. The result is an interface that is easily pluggable into most software stacks across operating system and framework boundaries. Likewise, several features of media frameworks were perceived to be handled at higher levels and not included in the API. Among these is the issue of file handling, which, if desired, may<br>be easily added to the IL structure outside of the standard. The design of the API also strove to accommodate as many system architectures as possible. The resulting design uses highly asynchronous communications, which allows processing to take place in another thread, on multiple processing elements, or on specialized hardware. In addition, the ability of hardware-accelerated codecs to communicate directly with one another via tunneling affords implementation architectures even greater flexibility and efficiency.</p>
-<p>如前所述，对OpenMAX IL的重点API是媒体编解码器的可移植性。多样性的现有设备和媒体解决方案必须实现OpenMAX IL的目标媒体软件栈的较高水平<br>关键初始用户。对于大多数操作系统，这意味着现有的媒体框架。因此，大部分的OpenMAX IL的API是由媒体框架的需求而产生的需求定义。同样，IL的设计允许媒体框架层尽可能轻。其结果是一个接口，容易嵌入到大多数软件栈跨操作系统和框架的边界。同样，媒体框架的几个功能被认为是在更高的水平，而不是在API中处理。其中之一是文件处理的问题，如果需要，可以<br>容易添加到IL以外的标准结构。API的设计也力求尽可能容纳尽可能多的系统架构。由此产生的设计采用高度异步通信，它允许处理发生在另一个线程，在多个处理元素，或在专门的硬件。此外，硬件加速解码能力与另一个直接通过隧道提供了更大的灵活性和效率，实现结构。</p>
-<p>###1.2.3 软件的景观<br>In most systems, a user-level media framework already exists. The OpenMAX IL API is designed to easily fit below these frameworks with little to no overhead between the interfaces. In most cases, the media framework provided by the operating system can be replaced with a thin layer that simply translates the API. Figure 1-1 illustrates the software landscape for the OpenMAX IL API.</p>
-<p>在大多数系统中，用户级媒体框架已经存在。OpenMAX IL的API的设计非常适合在这些框架几乎没有开销之间的接口。在大多数情况下，操作系统提供的媒体框架可以用一个简单的API层来替换。图1-1显示了OpenMAX IL的API软件景观。</p>
-<p><img src="img/1_1.png" alt=""></p>
-<p><strong>Figure 1-1. OpenMAX IL API Software Landscape</strong></p>
-<p>To remove possible reader confusion, the OpenMAX standard also defines a set of Development Layer (DL) primitives on which codecs can be built. The DL primitives and their full relationship to the IL are specified in other OpenMAX specification<br>documents.</p>
-<p>为了消除可能的读者混淆，OpenMAX标准还定义了一套开发层（DL）原语，编解码器可建。DL元素及其对IL完全的关系在其他OpenMAX规范规定<br>文件.</p>
-<p>###1.2.4 利益相关者<br>A few categories of stakeholders represent the broad array of companies participating in the production of multimedia solutions, each with their own interest in the IL API.</p>
-<p>一些类别的利益相关者代表了广泛的参与多媒体解决方案的生产企业，每个都有自己的兴趣在IL的API。</p>
-<p>####1.2.4.1  芯片厂商<br>Silicon vendors (SV) are responsible for delivering a representative set of OpenMAX IL components that are specific to the vendor’s platform. The vendors are anticipated to also supply components that are representative of the capabilities of their platforms.</p>
-<p>芯片厂商（SV）负责提供一组有代表性的OpenMAX IL成分是特定于供应商的平台。预计供应商还将提供代表其平台能力的组件。</p>
-<p>####1.2.4.2  独立软件供应商<br>Independent software vendors (ISV) are anticipated to deliver additional differentiated OpenMAX IL components that may or may not be specific to a given silicon vendor’s platform.</p>
-<p>独立软件供应商（ISV）预计将提供额外的分化OpenMAX IL的组件，可能会或可能不会具体到一个给定的硅供应商的平台。</p>
-<p>####1.2.4.3  操作系统厂商<br>Operating System Vendors (OSV) are anticipated to deliver software multimedia framework and standard reference OpenMAX IL components that enable integration of the representative silicon vendor’s components and ISV components. The OSV is responsible for conformance testing of the standard reference OpenMAX components.</p>
-<p>操作系统厂商（OSV）预计交付软件的多媒体框架和标准OpenMAX IL组件，使代表硅供应商的组件和软件组件的集成。OSV负责标准参考OpenMAX组件一致性测试。</p>
-<p>####1.2.4.4  原始设备制造商<br>Original Equipment Manufacturers (OEM) are anticipated to modify and optimize the integration of OpenMAX components provided by SVs, ISVs, and OSVs to their specific product architectures to enable delivery of OpenMAX integrated multimedia devices. OEMs may also develop and integrate their own proprietary OpenMAX components.</p>
-<p>原始设备制造商（OEM）预计修改和OpenMAX成分的SVS，ISV提供的优化整合，以其独特的产品架构和OSVs使OpenMAX集成多媒体设备交货。OEM可以开发和整合自己的专有OpenMAX组件。</p>
-<p>###1.2.5 接口<br>The OpenMAX IL API is a component-based media API that consists of two main segments: the core API and the component API.</p>
-<p>OpenMAX IL的API是一个基于组件的多媒体API，主要分为两部分：核心接口(core API)和组件接口(componet API)。</p>
-<p>####1.2.5.1  核心<br>The OpenMAX IL core is used for dynamically loading and unloading components and for facilitating component communication. Once loaded, the API allows the user to communicate directly with the component, which eliminates any overhead for high commands. Similarly, the core allows a user to establish a communication tunnel between two components. Once established, the core API is no longer used and communications flow directly between components.</p>
-<p>OpenMAX IL的核心是用于动态加载和卸载的组件和组件之间通信的便利。一旦加载，API允许用户直接与组件进行通信，从而消除了高命令的任何开销。同样，核心允许用户在两个组件之间建立通信通道。一旦建立，核心API不再使用和通信流组件之间的直接。</p>
-<p>####1.2.5.2  组件<br>In the OpenMAX Integration Layer, components represent individual blocks of functionality. Components can be sources, sinks, codecs, filters, splitters, mixers, or any other data operator. Depending on the implementation, a component could possibly represent a piece of hardware, a software codec, another processor, or a combination thereof.</p>
-<p>在OpenMAX集成层、组件代表独立的功能块。组件可以是源、汇、编解码器、滤波器、功分器、混频器、或任何其他数据操作。根据实现，一个组件可能代表一个硬件，一个软件编解码器，另一个处理器，或其组合。</p>
-<p>The individual parameters of a component can be set or retrieved through a set of associated data structures, enumerations, and interfaces. The parameters include data relevant to the component’s operation (i.e., codec options) or the actual execution state of the component.</p>
-<p>Buffer status, errors, and other time-sensitive data are relayed to the application via a set of callback functions. These are set via the normal parameter facilities and allow the API to expose more of the asynchronous nature of system architectures.</p>
-<p>一个组件的各个参数可以设置或检索，通过一组相关的数据结构和接口，枚举。参数包括与组件操作相关的数据（即编解码器选项）或组件的实际执行状态。</p>
-<p>Data communication to and from a component is conducted through interfaces called ports. Ports represent both the connection for components to the data stream and the buffers needed to maintain the connection. Users may send data to components through input ports or receive data through output ports. Similarly, a communication tunnel between two components can be established by connecting the output port of one component to a similarly formatted input port of another component.</p>
-<p>数据通信和从一个组件是通过接口称为端口。端口代表组件与数据流的连接以及维护连接所需的缓冲区。用户可以通过输入端口发送数据到组件，或者通过输出端口接收数据。类似地，通过将一个组件的输出端口连接到另一个组件的类似格式化的输入端口，可以建立两个组件之间的通信通道。</p>
-<p>##1.3  Definitions<br>When this specification discusses requirements and features of the OpenMAX IL API, specific words are used to convey their necessity in an implementation. Table 1-1 shows a list of these words.</p>
-<p>当这个规范讨论要求和OpenMAX IL的功能API，具体的词来表达他们的需要的实现。表1-1列出了这些话。</p>
-<table>
-<thead>
-<tr>
-<th>Word</th>
-<th>Definition</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>May</td>
-<td>The stated functionality is an optional requirement for an implementation of the OpenMAX IL API. Optional features are not required by the specification but may have conformance requirements if they are implemented. This is an optional feature as in “The component may have vendor specific extensions.”</td>
-</tr>
-<tr>
-<td>Shall</td>
-<td>The stated functionality is a requirement for an implementation of the OpenMAX IL API. If a component fails to meet a shall statement, it is not considered to conform to this specification. Shall is always used as a requirement, as in “The component designers shall produce good documentation.”</td>
-</tr>
-<tr>
-<td>Should</td>
-<td>The stated functionality is not a requirement for an implementation of the OpenMAX IL API but is recommended or is a good practice. Should is usually used as follows: “The component should begin processing buffers immediately after it transitions to the OMX_StateExecuting state.” While this is good practice, there may be a valid reason to delay processing buffers, such as not having input data available.</td>
-</tr>
-<tr>
-<td>Will</td>
-<td>The stated functionality is not a requirement for an implementation of the OpenMAX IL API. Will is usually used when referring to a third party, as in “the application framework will correctly handle errors.”</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Table 1-1. Definitions of Commonly Used Words</strong></p>
-<p>##1.4  作者<br>The following individuals, listed alphabetically by company, contributed to the OpenMAX Integration Layer Application Programming Interface Specification.</p>
-<p>OpenMAX IL API协议由下列人员按公司字母表排列顺序完成。</p>
-<ul>
-<li>Gordon Grigor (ATI)</li>
-<li>Andrew Rostaing (Beatnik)</li>
-<li>Chris Grigg (Beatnik)</li>
-<li>Russell Tillitt (Beatnik)</li>
-<li>Roger Nixon (Broadcom)</li>
-<li>Brian Murray (Freescale)</li>
-<li>Norbert Schwagmann (Infineon)</li>
-<li>Mark Kokes (Nokia)</li>
-<li>Samu Kaajas (Nokia)</li>
-<li>Yeshwant Muthusamy (Nokia)</li>
-<li>Jim Van Welzen (NVIDIA)</li>
-<li>David Siorpaes (STMicroelectronics)</li>
-<li>Diego Melpignano (STMicroelectronics)</li>
-<li>Giulio Urlini (STMicroelectronics)</li>
-<li>Kevin Butchart (Symbian)</li>
-<li>Viviana Dudau (Symbian)</li>
-<li>David Newman (Texas Instruments)</li>
-<li>Leo Estevez (Texas Instruments)</li>
-<li>Richard Baker (Texas Instruments)</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot; title=&quot;概述&quot;&gt;&lt;/a&gt;概述&lt;/h1&gt;&lt;h2 id=&quot;1-1-介绍&quot;&gt;&lt;a href=&quot;#1-1-介绍&quot; class=&quot;headerlink&quot; title=&quot;1.1  介绍&quot;&gt;&lt;/a&gt;
-    
-    </summary>
-    
-    
-  </entry>
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="xfdingustc" />
+          <p class="site-author-name" itemprop="name">xfdingustc</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-1-2-1-1-OMX-StateLoaded-到-OMX-StateIdle"><span class="nav-number">1.</span> <span class="nav-text">3.1.1.2.1.1  OMX_StateLoaded 到 OMX_StateIdle</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
   
-</feed>
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xfdingustc</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
